@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/OrderEntry/bin
+/OrderEntry/obj/Debug
+*.user
+/OrderEntry.Tests/bin/Debug
+/OrderEntry.Tests/obj/Debug
+*.userprefs
