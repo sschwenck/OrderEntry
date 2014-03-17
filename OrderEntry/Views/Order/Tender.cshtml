@@ -1,0 +1,37 @@
+﻿@model OrderEntry.Models.TenderViewModel
+
+@{
+    ViewBag.Title = "AddLine";
+}
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="addLineForm">
+            @using (Html.BeginForm("Tender", "Order", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h3>Order: xxxxxx-xx</h3>
+                @Html.ActionLink("Add Line", "Tender", "Order", routeValues: null, htmlAttributes: new { id = "addLineOrderLink", @class = "btn btn-default" })
+                <h4>Enter tender information.</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TenderAmount, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.TenderAmount, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TenderAmount)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Accept Tender" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

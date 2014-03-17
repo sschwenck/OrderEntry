@@ -5,6 +5,16 @@ namespace OrderEntry.Models
    public class OrderViewModel
    {
       [Required]
+      [Display(Name = "OrderNumber")]
+      public int OrderNumber { get; set; }
+
+      [Required]
+      [Display(Name = "OrderSuffix")]
+      public int OrderSuffix { get; set; }
+
+      [Required]
+      //TODO: make this be in xxx-xx format
+      //[RegularExpression()]
       [Display(Name = "Order Type")]
       public string OrderType { get; set; }
 

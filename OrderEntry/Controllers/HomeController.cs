@@ -8,16 +8,17 @@ namespace OrderEntry.Controllers
 {
    public class HomeController : Controller
    {
+      public const string loginScreen = "/Account/Login";
+
       public ActionResult Index()
       {
          if (Request.IsAuthenticated)
          {
-            return Redirect("/Order/Index");     
+            return Redirect("/Order/Index");
          }
          else
          {
-
-            return Redirect("/Account/Login");
+            return Redirect(loginScreen);
          }
       }
 

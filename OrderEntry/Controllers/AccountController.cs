@@ -49,7 +49,7 @@ namespace OrderEntry.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal("/Order/Index");
                 }
                 else
                 {
