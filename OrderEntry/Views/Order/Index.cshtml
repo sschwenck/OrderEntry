@@ -1,16 +1,14 @@
-﻿@{
-    ViewBag.Title = "Orders";
+﻿@model IEnumerable<OrderEntry.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <h4>Create or Maintain an Order.</h4>
-        @Html.ActionLink("Create Order", "Create", "Order", routeValues: null, htmlAttributes: new { id = "createOrderLink", @class = "btn btn-default" })
-        @Html.ActionLink("Maintain Order", "Create", "Order", routeValues: null, htmlAttributes: new { id = "maintainOrderLink", @class = "btn btn-default disabled" })
-    </div>
-    
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<h2>Order Home</h2>
+<hr/>
+
+<p>
+    @Html.ActionLink("Create New Order", "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+    @Html.ActionLink("Maintain Orders", "Maintain", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+</p>
+

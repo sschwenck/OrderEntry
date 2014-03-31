@@ -1,0 +1,88 @@
+﻿@model IEnumerable<OrderEntry.Models.Order>
+
+<h3>Orders</h3>
+<hr />
+
+<table id="OrderTable" class="table" style="margin-top: 50px">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderSuffix)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WarehouseNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerPO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TakenBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Taxable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfLines)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenderedAmount)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderSuffix)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarehouseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TakenBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Taxable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfLines)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenderedAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+            </td>
+        </tr>
+    }
+
+</table>

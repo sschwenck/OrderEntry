@@ -47,6 +47,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -156,23 +158,67 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CheckController.cs" />
+    <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LineController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\OrderControllerNS.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\TenderController.cs" />
+    <Compile Include="Controllers\WarehouseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\LineViewModel.cs" />
-    <Compile Include="Models\OrderViewModel.cs" />
-    <Compile Include="Models\TenderViewModel.cs" />
+    <Compile Include="Migrations\201403140139363_InitialCreate.cs" />
+    <Compile Include="Migrations\201403140139363_InitialCreate.Designer.cs">
+      <DependentUpon>201403140139363_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403270543380_Initial.cs" />
+    <Compile Include="Migrations\201403270543380_Initial.Designer.cs">
+      <DependentUpon>201403270543380_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403281919042_Update1.cs" />
+    <Compile Include="Migrations\201403281919042_Update1.Designer.cs">
+      <DependentUpon>201403281919042_Update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403300104318_OrderLinesAndProducts.cs" />
+    <Compile Include="Migrations\201403300104318_OrderLinesAndProducts.Designer.cs">
+      <DependentUpon>201403300104318_OrderLinesAndProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403310016287_OrderProdutUpdate.cs" />
+    <Compile Include="Migrations\201403310016287_OrderProdutUpdate.Designer.cs">
+      <DependentUpon>201403310016287_OrderProdutUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403310533235_LineUpdate.cs" />
+    <Compile Include="Migrations\201403310533235_LineUpdate.Designer.cs">
+      <DependentUpon>201403310533235_LineUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Accounts\AccountModels.cs" />
+    <Compile Include="Models\Orders\Address.cs" />
+    <Compile Include="Models\Orders\Customer.cs" />
+    <Compile Include="Models\Accounts\IdentityModels.cs" />
+    <Compile Include="Models\Lines\Line.cs" />
+    <Compile Include="Models\Orders\DetailsViewModel.cs" />
+    <Compile Include="Models\Orders\MaintainViewModel.cs" />
+    <Compile Include="Models\Orders\Order.cs" />
+    <Compile Include="Models\Lines\Product.cs" />
+    <Compile Include="Models\Orders\ShipTo.cs" />
+    <Compile Include="Models\Tendering\Check.cs" />
+    <Compile Include="Models\Tendering\CreditCard.cs" />
+    <Compile Include="Models\Tendering\Tender.cs" />
+    <Compile Include="Models\Orders\Warehouse.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\ShipToController.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +230,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Documents\DesignDoc.docx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -213,11 +260,64 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
-    <Content Include="Views\Order\AddLine.cshtml" />
-    <Content Include="Views\Order\Tender.cshtml" />
+    <Content Include="Views\Line\Create.cshtml" />
+    <Content Include="Views\Line\Delete.cshtml" />
+    <Content Include="Views\Line\Details.cshtml" />
+    <Content Include="Views\Line\Edit.cshtml" />
+    <Content Include="Views\Line\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Address\Create.cshtml" />
+    <Content Include="Views\Address\Delete.cshtml" />
+    <Content Include="Views\Address\Details.cshtml" />
+    <Content Include="Views\Address\Edit.cshtml" />
+    <Content Include="Views\Address\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\ShipTo\Create.cshtml" />
+    <Content Include="Views\ShipTo\Delete.cshtml" />
+    <Content Include="Views\ShipTo\Details.cshtml" />
+    <Content Include="Views\ShipTo\Edit.cshtml" />
+    <Content Include="Views\ShipTo\Index.cshtml" />
+    <Content Include="Views\Warehouse\Create.cshtml" />
+    <Content Include="Views\Warehouse\Delete.cshtml" />
+    <Content Include="Views\Warehouse\Details.cshtml" />
+    <Content Include="Views\Warehouse\Edit.cshtml" />
+    <Content Include="Views\Warehouse\Index.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\Order\Delete.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Check\Create.cshtml" />
+    <Content Include="Views\Check\Delete.cshtml" />
+    <Content Include="Views\Check\Details.cshtml" />
+    <Content Include="Views\Check\Edit.cshtml" />
+    <Content Include="Views\Check\Index.cshtml" />
+    <Content Include="Views\CreditCard\Create.cshtml" />
+    <Content Include="Views\CreditCard\Delete.cshtml" />
+    <Content Include="Views\CreditCard\Details.cshtml" />
+    <Content Include="Views\CreditCard\Edit.cshtml" />
+    <Content Include="Views\CreditCard\Index.cshtml" />
+    <Content Include="Views\Tender\Create.cshtml" />
+    <Content Include="Views\Tender\Delete.cshtml" />
+    <Content Include="Views\Tender\Details.cshtml" />
+    <Content Include="Views\Tender\Edit.cshtml" />
+    <Content Include="Views\Tender\Index.cshtml" />
+    <Content Include="Views\OrderNS\AddLine.cshtml" />
+    <Content Include="Views\OrderNS\Create.cshtml" />
+    <Content Include="Views\OrderNS\Index.cshtml" />
+    <Content Include="Views\OrderNS\Tender.cshtml" />
+    <Content Include="Views\Order\Maintain.cshtml" />
+    <Content Include="Views\Order\_OrderSearch.cshtml" />
+    <Content Include="Views\Order\_OrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -229,6 +329,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201403140139363_InitialCreate.resx">
+      <DependentUpon>201403140139363_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403270543380_Initial.resx">
+      <DependentUpon>201403270543380_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403281919042_Update1.resx">
+      <DependentUpon>201403281919042_Update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403300104318_OrderLinesAndProducts.resx">
+      <DependentUpon>201403300104318_OrderLinesAndProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403310016287_OrderProdutUpdate.resx">
+      <DependentUpon>201403310016287_OrderProdutUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403310533235_LineUpdate.resx">
+      <DependentUpon>201403310533235_LineUpdate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

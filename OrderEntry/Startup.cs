@@ -1,5 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System;
+using System.Data.Entity;
 
 [assembly: OwinStartupAttribute(typeof(OrderEntry.Startup))]
 namespace OrderEntry

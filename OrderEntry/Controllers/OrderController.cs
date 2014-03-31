@@ -1,129 +1,177 @@
-﻿using OrderEntry.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using OrderEntry.Models;
+using OrderEntry.Models.Orders;
 
 namespace OrderEntry.Controllers
 {
     public class OrderController : Controller
     {
-       public const string loginScreen = "/Account/Login";
+        private ApplicationDbContext db = new ApplicationDbContext();
 
+        // GET: /Order/
         public ActionResult Index()
         {
-            if (Request.IsAuthenticated)
+            return View();
+        }
+
+        // GET: /Order/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
             {
-               return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
             }
             else
             {
-               return Redirect(loginScreen);
+               var vm = new DetailsViewModel { CurrentOrder = order, LineForDisplay = new Line() };
+               return View(vm);
             }
         }
 
-       [AllowAnonymous]
-        public ActionResult Create(string returnUrl)
+        // GET: /Order/Create
+        public ActionResult Create()
         {
-           ViewBag.ReturnUrl = returnUrl;
-          if (Request.IsAuthenticated)
-          {
-             return View();
-          }
-          else
-          {
-             return Redirect(loginScreen);
-          }
+           var order = new Order();
+            return View(order);
         }
 
-       [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
-       public async Task<ActionResult> Create(OrderViewModel model, string returnUrl)
-       {
-          if (Request.IsAuthenticated)
-          {
-             if (ModelState.IsValid)
-             {
-                return Redirect("/Order/AddLine");
-             }
-             // If we got this far, something failed, redisplay form
-             return View(model);
-          }
-          else
-          {
-             return Redirect(loginScreen);
-          }
-       }
+        // POST: /Order/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include="OrderID,OrderNumber,OrderSuffix,OrderType,CustomerNumber,WarehouseNumber,CustomerPO,TakenBy,ShipTo,Taxable")] Order order)
+        {
+           if (order.OrderNumber != 0 && order.CustomerNumber != 0 && order.WarehouseNumber != 0)
+           {
+              var customer = db.Customers.FirstOrDefault(c => c.CustomerNumber == order.CustomerNumber);
+              var warehouse = db.Warehouses.FirstOrDefault(w => w.WarehouseNumber == order.WarehouseNumber);
 
-       [AllowAnonymous]
-       public ActionResult AddLine(string returnUrl)
-       {
-          ViewBag.ReturnUrl = returnUrl;
-          if (Request.IsAuthenticated)
-          {
-             return View();
-          }
-          else
-          {
-             return Redirect(loginScreen);
-          }
-       }
+              if (customer != null)
+              {
+                 //order.Customer = customer;
+              }
+              else
+              {
+                 return View(order);
+              }
 
-       [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
-       public async Task<ActionResult> AddLine(LineViewModel model, string returnUrl)
-       {
-          if (Request.IsAuthenticated)
-          {
-             if (ModelState.IsValid)
-             {
-                return View();
-             }
-             // If we got this far, something failed, redisplay form
-             return View(model);
-          }
-          else
-          {
-             return Redirect(loginScreen);
-          }
-       }
+              if (warehouse != null)
+              {
+                 //order.Warehouse = warehouse;
+              }
+              else
+              {
+                 return View(order);
+              }
 
-       [AllowAnonymous]
-       public ActionResult Tender(string returnUrl)
-       {
-          ViewBag.ReturnUrl = returnUrl;
-          if (Request.IsAuthenticated)
-          {
-             return View();
-          }
-          else
-          {
-             return Redirect(loginScreen);
-          }
-       }
+              db.Orders.Add(order);
+              db.SaveChanges();
+              return RedirectToAction("Details", new { id = order.OrderID });
+           }
 
-       [HttpPost]
-       [AllowAnonymous]
-       [ValidateAntiForgeryToken]
-       public async Task<ActionResult> Tender(LineViewModel model, string returnUrl)
-       {
-          if (Request.IsAuthenticated)
-          {
-             if (ModelState.IsValid)
-             {
-                return View();
-             }
-             // If we got this far, something failed, redisplay form
-             return View(model);
-          }
-          else
-          {
-             return Redirect(loginScreen);
-          }
-       }
-	}
+            return View(order);
+        }
+
+        // GET: /Order/Maintain
+        public ActionResult Maintain()
+        {
+           MaintainViewModel mvm = new MaintainViewModel();
+           mvm.Orders = db.Orders.ToList();
+           mvm.SearchOrderCriteria = new Order();
+
+           return View(mvm);
+        }
+
+        // GET: /Order/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+               var customer = db.Customers.FirstOrDefault(c => c.CustomerNumber == order.CustomerNumber);
+               var warehouse = db.Warehouses.FirstOrDefault(w => w.WarehouseNumber == order.WarehouseNumber);
+
+               if (customer != null)
+               {
+                  //order.Customer = customer;
+               }
+               if (warehouse != null)
+               {
+                  //order.Warehouse = warehouse;
+               }
+
+               return View(order);
+            }
+        }
+
+        // POST: /Order/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include="OrderID,OrderNumber,OrderSuffix,OrderType,CustomerNumber,WarehouseNumber,CustomerPO,TakenBy,Taxable")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(order);
+        }
+
+        // GET: /Order/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(order);
+        }
+
+        // POST: /Order/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Order order = db.Orders.Find(id);
+            db.Orders.Remove(order);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
 }

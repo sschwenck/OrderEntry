@@ -1,0 +1,12 @@
+﻿@model OrderEntry.Models.Orders.MaintainViewModel
+
+@{
+    ViewBag.Title = "Maintain";
+}
+
+<h2>Maintain Order</h2>
+<hr />
+
+@Html.Partial("_OrderSearch", Model.SearchOrderCriteria)
+
+@Html.Partial("_OrderList", Model.Orders)

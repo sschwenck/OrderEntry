@@ -1,0 +1,188 @@
+﻿@model OrderEntry.Models.Orders.DetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Order Details</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.OrderNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.OrderNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.OrderSuffix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.OrderSuffix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.OrderType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.OrderType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.CustomerNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.CustomerNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.WarehouseNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.WarehouseNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.CustomerPO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.CustomerPO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.TakenBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.TakenBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.Taxable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.Taxable)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.NumberOfLines)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.OrderTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.OrderTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.TenderedAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentOrder.TenderedAmount)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Add Line", "Create", "Line", new { orderID = Model.CurrentOrder.OrderID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CurrentOrder.OrderID }, new { @class = "btn btn-default" })
+</p>
+
+@if (Model.CurrentOrder.Lines != null && Model.CurrentOrder.Lines.Any())
+{
+ <h2>Lines</h2>
+    <hr />
+    <table id="LinesTable" class="table" style="margin-top: 50px">
+        <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.LineNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.ProductNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.QtyOrd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.QtyShip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.MarginAmt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.MarginPct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.NetAmt)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.CurrentOrder.Lines)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyOrd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyShip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarginAmt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarginPct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NetAmt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.OrderNumber }) |
+            @Html.ActionLink("Details", "Details", new { id = item.OrderNumber }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.OrderNumber })
+        </td>
+    </tr>
+    }   
+</table>
+}
+
+<p>
+    
+    @*@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })*@
+</p>

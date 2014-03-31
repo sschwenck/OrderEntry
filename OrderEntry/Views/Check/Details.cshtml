@@ -1,0 +1,42 @@
+﻿@model OrderEntry.Models.Tendering.Check
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Check</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BankNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CheckNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CheckNo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CheckID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

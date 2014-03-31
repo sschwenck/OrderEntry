@@ -1,0 +1,93 @@
+﻿@model IEnumerable<OrderEntry.Models.Line>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LineNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtyOrd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtyShip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NetAmt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarginAmt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarginPct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyOrd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyShip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NetAmt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarginAmt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarginPct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LineID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LineID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LineID })
+        </td>
+    </tr>
+}
+
+</table>

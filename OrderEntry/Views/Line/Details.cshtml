@@ -1,0 +1,106 @@
+﻿@model OrderEntry.Models.Line
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Line</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LineNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtyOrd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtyOrd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtyShip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtyShip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NetAmt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NetAmt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarginAmt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarginAmt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarginPct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarginPct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LineID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
