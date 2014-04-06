@@ -6,6 +6,8 @@ namespace OrderEntry.Models
    {
       public int LineID { get; set; }
 
+      public int OrderID { get; set; }
+
       [Display(Name = "Order")]
       public int OrderNumber { get; set; }
 

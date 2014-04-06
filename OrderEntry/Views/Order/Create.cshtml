@@ -20,11 +20,12 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.OrderNumber, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.OrderNumber, new { @class = "form-control", style = "display: compact" })
+                    <div class="col-md-10" style="margin-top: 8px">
+                        @Html.HiddenFor(model => model.OrderNumber)
+                        @Html.DisplayFor(model => model.OrderNumber, new { @class = "form-control", style = "display: compact" })
                         @Html.ValidationMessageFor(model => model.OrderNumber)
                          - 
-                        @Html.TextBoxFor(model => model.OrderSuffix, new { @class = "form-control", style = "width: 50px" })
+                        @Html.DisplayFor(model => model.OrderSuffix, new { @class = "form-control", style = "width: 50px" })
                         @Html.ValidationMessageFor(model => model.OrderSuffix)
                     </div>
                 </div>

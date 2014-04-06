@@ -15,12 +15,14 @@ namespace OrderEntry.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: /Line/
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Lines.ToList());
         }
 
         // GET: /Line/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,44 +38,38 @@ namespace OrderEntry.Controllers
         }
 
         // GET: /Line/Create
+        [Authorize]
         public ActionResult Create(int orderID)
         {
-           int varID = orderID;
-           var line = new Line { OrderNumber = orderID };
+           var line = new Line { OrderID = orderID };
 
             return View(line);
         }
 
         // POST: /Line/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="LineID,LineNo,ProductNumber,Description,QtyOrd,QtyShip,Price,Discount,NetAmt,MarginAmt,MarginPct,Unit,OrderNumber")] Line line)
+        public ActionResult Create([Bind(Include = "LineID,OrderID,LineNo,ProductNumber,Description,QtyOrd,QtyShip,Price,Discount,NetAmt,MarginAmt,MarginPct,Unit,OrderNumber")] Line line)
         {
             if (ModelState.IsValid)
             {
-               var order = db.Orders.FirstOrDefault(o => o.OrderID == line.OrderNumber);
+               var lines = db.Lines.Where(l => l.OrderID == line.OrderID);
 
-               var newLinesList = new List<Line>();
-               if (order.Lines != null && order.Lines.Any())
-               {
-                  newLinesList = order.Lines.ToList();
-               }
-               newLinesList.Add(line);
-               order.Lines = newLinesList;
+               line.LineNo = lines.Count() + 1;
 
-               db.Entry(order).State = EntityState.Modified;
-                  //db.Entry(line).State = EntityState.Modified;
-                //db.Lines.Add(line);
+               line.NetAmt = CalculateNetAmount(line);
+
+               db.Lines.Add(line);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Order", routeValues: new { id = order.OrderID });
+                return RedirectToAction("Details", "Order", routeValues: new { id = line.OrderID });
             }
 
             return View(line);
         }
 
         // GET: /Line/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -89,9 +85,8 @@ namespace OrderEntry.Controllers
         }
 
         // POST: /Line/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="LineID,LineNo,Product,Description,QtyOrd,QtyShip,Price,Discount,NetAmt,MarginAmt,MarginPct,Unit")] Line line)
         {
@@ -105,6 +100,7 @@ namespace OrderEntry.Controllers
         }
 
         // GET: /Line/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +117,7 @@ namespace OrderEntry.Controllers
 
         // POST: /Line/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -129,6 +126,22 @@ namespace OrderEntry.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+       private decimal CalculateNetAmount(Line line)
+       {
+          var netAmt = line.Price;
+
+          if (line.Discount != 0)
+          {
+             netAmt = line.Price - line.Discount;
+          }
+          if (line.MarginAmt != 0)
+          {
+             //calculate margin, we should have a cost when we start creating products
+          }
+
+          return netAmt;
+       }
 
         protected override void Dispose(bool disposing)
         {

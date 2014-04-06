@@ -15,12 +15,14 @@ namespace OrderEntry
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: /Customer/
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
         }
 
         // GET: /Customer/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace OrderEntry
         }
 
         // GET: /Customer/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +48,7 @@ namespace OrderEntry
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="CustomerID,CustomerNumber,CustomerName")] Customer customer)
         {
@@ -59,6 +63,7 @@ namespace OrderEntry
         }
 
         // GET: /Customer/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +82,7 @@ namespace OrderEntry
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="CustomerID,CustomerNumber,CustomerName")] Customer customer)
         {
@@ -90,6 +96,7 @@ namespace OrderEntry
         }
 
         // GET: /Customer/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +113,7 @@ namespace OrderEntry
 
         // POST: /Customer/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

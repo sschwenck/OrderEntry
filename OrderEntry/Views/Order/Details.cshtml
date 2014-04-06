@@ -14,15 +14,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CurrentOrder.OrderNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentOrder.OrderSuffix)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CurrentOrder.OrderSuffix)
+            @Html.DisplayFor(model => model.CurrentOrder.OrderNumber) - @Html.DisplayFor(model => model.CurrentOrder.OrderSuffix)
         </dd>
 
         <dt>
@@ -73,6 +65,10 @@
             @Html.DisplayFor(model => model.CurrentOrder.Taxable)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentOrder.NumberOfLines)
+        </dt>
+
         <dd>
             @Html.DisplayFor(model => model.CurrentOrder.NumberOfLines)
         </dd>
@@ -105,7 +101,7 @@
 {
  <h2>Lines</h2>
     <hr />
-    <table id="LinesTable" class="table" style="margin-top: 50px">
+    <table id="LinesTable" class="table" style="margin-top: 25px">
         <tr>
         <th>
             @Html.DisplayNameFor(model => model.LineForDisplay.LineNo)
@@ -117,11 +113,14 @@
             @Html.DisplayNameFor(model => model.LineForDisplay.Description)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.QtyOrd)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.LineForDisplay.Unit)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LineForDisplay.QtyOrd)
-        </th>
+            @Html.DisplayNameFor(model => model.LineForDisplay.Price)
+        </th>    
         <th>
             @Html.DisplayNameFor(model => model.LineForDisplay.QtyShip)
         </th>
@@ -152,10 +151,13 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.QtyOrd)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Unit)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.QtyOrd)
+            @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.QtyShip)

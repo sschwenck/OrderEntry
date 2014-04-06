@@ -16,15 +16,8 @@
         <hr />
         @Html.ValidationSummary(true)
 
-        @Html.HiddenFor(model => model.OrderNumber)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LineNo, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LineNo)
-                @Html.ValidationMessageFor(model => model.LineNo)
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.OrderID)
+        @Html.HiddenFor(model => model.LineNo)
 
         <div class="form-group">
             @Html.LabelFor(model => model.ProductNumber, new { @class = "control-label col-md-2" })
@@ -49,12 +42,12 @@
                 @Html.ValidationMessageFor(model => model.QtyOrd)
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.QtyShip, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Unit, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.QtyShip)
-                @Html.ValidationMessageFor(model => model.QtyShip)
+                @Html.EditorFor(model => model.Unit)
+                @Html.ValidationMessageFor(model => model.Unit)
             </div>
         </div>
 
@@ -65,20 +58,20 @@
                 @Html.ValidationMessageFor(model => model.Price)
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.QtyShip, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.QtyShip)
+                @Html.ValidationMessageFor(model => model.QtyShip)
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Discount, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Discount)
                 @Html.ValidationMessageFor(model => model.Discount)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NetAmt, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NetAmt)
-                @Html.ValidationMessageFor(model => model.NetAmt)
             </div>
         </div>
 
@@ -97,12 +90,13 @@
                 @Html.ValidationMessageFor(model => model.MarginPct)
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.Unit, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NetAmt, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Unit)
-                @Html.ValidationMessageFor(model => model.Unit)
+                @Html.HiddenFor(model => model.NetAmt)
+                @Html.DisplayFor(model => model.NetAmt)
+                @Html.ValidationMessageFor(model => model.NetAmt)
             </div>
         </div>
 

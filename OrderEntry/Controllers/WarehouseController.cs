@@ -15,12 +15,14 @@ namespace OrderEntry.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: /Warehouse/
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Warehouses.ToList());
         }
 
         // GET: /Warehouse/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace OrderEntry.Controllers
         }
 
         // GET: /Warehouse/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +48,7 @@ namespace OrderEntry.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="WarehouseID,WarehouseNumber,WarehouseName")] Warehouse warehouse)
         {
@@ -59,6 +63,7 @@ namespace OrderEntry.Controllers
         }
 
         // GET: /Warehouse/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +82,7 @@ namespace OrderEntry.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="WarehouseID,WarehouseNumber,WarehouseName")] Warehouse warehouse)
         {
@@ -90,6 +96,7 @@ namespace OrderEntry.Controllers
         }
 
         // GET: /Warehouse/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +113,7 @@ namespace OrderEntry.Controllers
 
         // POST: /Warehouse/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
